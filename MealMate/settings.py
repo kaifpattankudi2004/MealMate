@@ -16,6 +16,9 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+import os
+import shutil
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
@@ -25,7 +28,7 @@ SECRET_KEY = "django-insecure-sdy3zwam(r1c3%h$=s@u_k%p+l8adg9t1uj&&vm69z9(axknsi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -73,10 +77,18 @@ WSGI_APPLICATION = "MealMate.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+db_path = BASE_DIR / "db.sqlite3"
+if os.environ.get("VERCEL"):
+    tmp_db = Path("/tmp/db.sqlite3")
+    if not tmp_db.exists() and db_path.exists():
+        shutil.copyfile(db_path, tmp_db)
+    if tmp_db.exists():
+        db_path = tmp_db
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": db_path,
     }
 }
 
@@ -116,6 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 RAZORPAY_KEY_ID = "rzp_test_TLgEDJo42VOu0N"
 RAZORPAY_KEY_SECRET = "t6Low3BqJMVn5KR4LiEU62Rg"

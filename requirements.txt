@@ -1,0 +1,7 @@
+Django>=5.0,<7.0
+asgiref
+sqlparse
+tzdata
+razorpay
+requests
+whitenoise
