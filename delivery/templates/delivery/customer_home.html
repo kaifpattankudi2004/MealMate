@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurants - MealMate</title>
+    <link rel="stylesheet" href="{% static 'delivery/styletheme.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="nav-brand">🍔 <span>MealMate</span></a>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div class="user-badge">
+                👤 {{ username }}
+            </div>
+            <a href="{% url 'show_cart' username %}" class="btn btn-secondary btn-sm">
+                🛒 View Cart
+            </a>
+        </div>
+    </nav>
+
+    <main class="page-container">
+        <div class="hero">
+            <h1 class="hero-title">Hungry? We've Got You!</h1>
+            <p class="hero-subtitle">Order from the best restaurants around you with fast delivery.</p>
+        </div>
+
+        <div class="section-header">
+            <h2 class="section-title">Popular Restaurants</h2>
+        </div>
+
+        <div class="grid">
+            {% for r in restaurantList %}
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="{{ r.picture }}" alt="{{ r.name }}" class="card-img" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxDZHfSwrp57B1QFsRkAY7RPvW1CdYiV9JGsumUEcC8w&s=10';">
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ r.name }}</h3>
+                    <div class="card-meta">
+                        <span class="cuisine-tag">{{ r.cuisine }}</span>
+                        <span class="rating-badge">★ {{ r.rating }}</span>
+                    </div>
+                    <div style="margin-top: auto;">
+                        <a href="{% url 'view_menu' r.id username %}" class="btn btn-primary btn-block">View Menu</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: white; border-radius: var(--radius-md);">
+                <p style="color: var(--text-muted);">No restaurants available right now. Please check back later!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MealMate. All rights reserved.</p>
+    </footer>
+</body>
+</html>

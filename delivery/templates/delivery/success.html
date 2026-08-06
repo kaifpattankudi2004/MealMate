@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success - MealMate</title>
+    <link rel="stylesheet" href="{% static 'delivery/styletheme.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="nav-brand">🍔 <span>MealMate</span></a>
+    </nav>
+
+    <main class="page-container">
+        <div class="status-card status-success">
+            <div class="status-icon">✓</div>
+            <h1 class="status-title">Login Successful!</h1>
+            <p class="status-desc">Welcome back to MealMate.</p>
+            <a href="/" class="btn btn-primary">Continue to Home</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MealMate. All rights reserved.</p>
+    </footer>
+</body>
+</html>

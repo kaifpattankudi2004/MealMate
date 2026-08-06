@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - MealMate</title>
+    <link rel="stylesheet" href="{% static 'delivery/styletheme.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="nav-brand">🍔 <span>MealMate</span></a>
+        <ul class="nav-links">
+            <li><a href="{% url 'open_signin' %}" class="nav-link">Already have an account? Sign In</a></li>
+        </ul>
+    </nav>
+
+    <main class="page-container">
+        <div class="form-card">
+            <h2 class="form-title">Create Account</h2>
+            <p class="form-subtitle">Join MealMate to order delicious food</p>
+
+            <form action="{% url 'signup' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Choose a username" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Create a password" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="mobile">Mobile Number</label>
+                    <input type="tel" id="mobile" name="mobile" class="form-control" placeholder="10-digit mobile number" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="address">Delivery Address</label>
+                    <textarea id="address" name="address" class="form-control" placeholder="Enter complete delivery address" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MealMate. All rights reserved.</p>
+    </footer>
+</body>
+</html>

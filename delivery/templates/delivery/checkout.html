@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - MealMate</title>
+    <link rel="stylesheet" href="{% static 'delivery/styletheme.css' %}">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="nav-brand">🍔 <span>MealMate</span></a>
+        <div class="user-badge">
+            👤 {{ username }}
+        </div>
+    </nav>
+
+    <main class="page-container" style="max-width: 680px;">
+        <div class="section-header">
+            <h1 class="section-title">Order Checkout</h1>
+            <button onclick="history.back()" class="btn btn-secondary btn-sm">← Back to Cart</button>
+        </div>
+
+        {% if error %}
+        <div class="status-card status-fail">
+            <div class="status-icon">⚠️</div>
+            <h2 class="status-title">Unable to Checkout</h2>
+            <p class="status-desc">{{ error }}</p>
+            <a href="javascript:history.back()" class="btn btn-primary">Go Back</a>
+        </div>
+        {% else %}
+        <div style="background: white; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-md);">
+            <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-dark);">Order Summary</h2>
+
+            <div class="table-container" style="margin-bottom: 1.5rem;">
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th style="text-align: right;">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart_items %}
+                        <tr>
+                            <td>{{ item.item.name }} <span style="color: var(--text-muted); font-size: 0.85rem;">(x{{ item.quantity }})</span></td>
+                            <td style="text-align: right; font-weight: 600;">₹{{ item.total_price }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 2px dashed var(--border-color); margin-bottom: 2rem;">
+                <span style="font-size: 1.1rem; font-weight: 700; color: var(--text-dark);">Total Amount:</span>
+                <span class="price-tag" style="font-size: 1.75rem;">₹{{ total_price }}</span>
+            </div>
+
+            <button id="rzp-button" class="btn btn-primary btn-block" style="padding: 1rem; font-size: 1.1rem;">
+                💳 Pay ₹{{ total_price }} with Razorpay
+            </button>
+        </div>
+
+        <script>
+            var options = {
+                "key": "{{ razorpay_key_id }}",
+                "amount": "{{ total_price|floatformat:2|add:'0.00'|floatformat:2 }}00",
+                "currency": "INR",
+                "name": "MealMate",
+                "description": "Food Order Payment",
+                "order_id": "{{ order_id }}",
+                "handler": function (response) {
+                    window.location.href = "{% url 'orders' username %}";
+                },
+                "prefill": {
+                    "name": "{{ username }}",
+                    "email": "customer@example.com",
+                    "contact": "9999999999"
+                },
+                "theme": {
+                    "color": "#FF4757"
+                }
+            };
+            var rzp = new Razorpay(options);
+        
+            document.getElementById('rzp-button').onclick = function(e) {
+                rzp.open();
+                e.preventDefault();
+            }
+        </script>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MealMate. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - MealMate</title>
+    <link rel="stylesheet" href="{% static 'delivery/styletheme.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            🍔 <span>MealMate Admin</span>
+        </div>
+        <div class="user-badge">
+            👤 Administrator
+        </div>
+    </nav>
+
+    <main class="page-container">
+        <div class="section-header">
+            <h1 class="section-title">Admin Dashboard</h1>
+        </div>
+
+        <div class="admin-grid">
+            <div class="action-card">
+                <div class="action-icon">➕</div>
+                <h3 style="margin-bottom: 0.5rem;">Add Restaurant</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">Register a new restaurant partner to the platform.</p>
+                <a href="{% url 'open_add_restaurant' %}" class="btn btn-primary btn-block">Add New Restaurant</a>
+            </div>
+
+            <div class="action-card">
+                <div class="action-icon">🏪</div>
+                <h3 style="margin-bottom: 0.5rem;">Manage Restaurants</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">View, edit info, delete or update menus of all restaurants.</p>
+                <a href="{% url 'open_show_restaurant' %}" class="btn btn-secondary btn-block">Show Restaurants</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MealMate. All rights reserved.</p>
+    </footer>
+</body>
+</html>

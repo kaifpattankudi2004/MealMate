@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - MealMate</title>
+    <link rel="stylesheet" href="{% static 'delivery/styletheme.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="nav-brand">🍔 <span>MealMate</span></a>
+        <ul class="nav-links">
+            <li><a href="{% url 'open_signup' %}" class="nav-link">Need an account? Sign Up</a></li>
+        </ul>
+    </nav>
+
+    <main class="page-container">
+        <div class="form-card">
+            <h2 class="form-title">Welcome Back</h2>
+            <p class="form-subtitle">Sign in to your MealMate account</p>
+
+            <form action="{% url 'signin' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Enter username" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MealMate. All rights reserved.</p>
+    </footer>
+</body>
+</html>

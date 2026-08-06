@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Placed - MealMate</title>
+    <link rel="stylesheet" href="{% static 'delivery/styletheme.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="nav-brand">🍔 <span>MealMate</span></a>
+        <div class="user-badge">
+            👤 {{ username }}
+        </div>
+    </nav>
+
+    <main class="page-container">
+        <div class="status-card status-success">
+            <div class="status-icon">🎉</div>
+            <h1 class="status-title">Order Placed Successfully!</h1>
+            <p class="status-desc">Thank you for your order, <strong>{{ username }}</strong>. Your food is being prepared and will be delivered shortly!</p>
+
+            <div style="background: var(--bg-page); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem; text-align: left; margin-bottom: 2rem;">
+                <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Delivery Address</h3>
+                <p style="color: var(--text-dark); font-weight: 500;">{{ customer.address }}</p>
+            </div>
+
+            <a href="/" class="btn btn-primary btn-block">Back to Home</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MealMate. All rights reserved.</p>
+    </footer>
+</body>
+</html>

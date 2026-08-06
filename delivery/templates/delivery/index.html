@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to MealMate</title>
+    <link rel="stylesheet" href="{% static 'delivery/styletheme.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            🍔 <span>MealMate</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'open_signin' %}" class="nav-link">Sign In</a></li>
+            <li><a href="{% url 'open_signup' %}" class="btn btn-primary btn-sm">Sign Up</a></li>
+        </ul>
+    </nav>
+
+    <main class="page-container">
+        <div class="hero">
+            <h1 class="hero-title">Delicious Food, Delivered Fast</h1>
+            <p class="hero-subtitle">Discover top-rated restaurants near you and get your favourite meals delivered right to your doorstep.</p>
+            <div class="hero-actions">
+                <a href="{% url 'open_signup' %}" class="btn btn-primary">Get Started</a>
+                <a href="{% url 'open_signin' %}" class="btn btn-secondary">Sign In</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MealMate. All rights reserved.</p>
+    </footer>
+</body>
+</html>

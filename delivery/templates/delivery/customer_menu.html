@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - {{ restaurant.name }}</title>
+    <link rel="stylesheet" href="{% static 'delivery/styletheme.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="nav-brand">🍔 <span>MealMate</span></a>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div class="user-badge">
+                👤 {{ username }}
+            </div>
+            <a href="{% url 'show_cart' username %}" class="btn btn-secondary btn-sm">
+                🛒 Cart
+            </a>
+        </div>
+    </nav>
+
+    <main class="page-container">
+        <div class="section-header">
+            <div>
+                <h1 class="section-title">{{ restaurant.name }}</h1>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">{{ restaurant.cuisine }} • ★ {{ restaurant.rating }}</p>
+            </div>
+            <a href="{% url 'signin' %}" onclick="history.back(); return false;" class="btn btn-secondary btn-sm">← Back</a>
+        </div>
+
+        <div class="grid">
+            {% for item in itemList %}
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="{{ item.picture }}" alt="{{ item.name }}" class="card-img" onerror="this.src='https://www.indiafilings.com/learn/wp-content/uploads/2024/08/How-to-Start-Food-Business.jpg';">
+                </div>
+                <div class="card-body">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+                        <h3 class="card-title" style="margin-bottom: 0;">{{ item.name }}</h3>
+                        {% if item.vegeterian %}
+                        <span class="diet-badge diet-veg">🟢 Veg</span>
+                        {% else %}
+                        <span class="diet-badge diet-nonveg">🔴 Non-Veg</span>
+                        {% endif %}
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem; flex: 1;">{{ item.description }}</p>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+                        <span class="price-tag">₹{{ item.price }}</span>
+                        <a href="{% url 'add_to_cart' item.id username %}" class="btn btn-primary btn-sm">
+                            + Add to Cart
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: white; border-radius: var(--radius-md);">
+                <p style="color: var(--text-muted);">No items available in this menu yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MealMate. All rights reserved.</p>
+    </footer>
+</body>
+</html>
